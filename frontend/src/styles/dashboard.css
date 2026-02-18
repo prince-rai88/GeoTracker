@@ -1,0 +1,213 @@
+.dashboard-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  color: white;
+}
+.map-container {
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 400px; /* You can increase it for full-screen effect */
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.dashboard-container {
+  display: flex;
+  width: 100vw;
+  min-height: 100vh;
+  color: white;
+  background: #0f172a;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: #020617;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar li:hover {
+  background: #1e293b;
+}
+
+.sidebar li.active {
+  background: #2563eb;
+}
+
+/* Logout */
+.logout-btn {
+  padding: 10px;
+  border: none;
+  background: #dc2626;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Topbar */
+.topbar h1 {
+  font-size: 28px;
+}
+
+.topbar p {
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+/* Cards */
+.cards {
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  flex: 1;
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Map Section */
+.map-section {
+  width: 100%;
+  height: 500px;
+  margin-top: 20px;
+}
+
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+/* Sidebar */
+
+.sidebar {
+  width: 240px;
+  background: #020617;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar li:hover {
+  background: #1e293b;
+}
+
+.sidebar li.active {
+  background: #2563eb;
+}
+
+/* Logout */
+
+.logout-btn {
+  padding: 10px;
+  border: none;
+  background: #dc2626;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Main Content */
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+}
+
+/* Topbar */
+
+.topbar h1 {
+  font-size: 28px;
+}
+
+.topbar p {
+  color: #94a3b8;
+  margin-bottom: 30px;
+}
+
+/* Cards */
+
+.cards {
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  flex: 1;
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+}
