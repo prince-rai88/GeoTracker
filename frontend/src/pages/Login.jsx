@@ -5,54 +5,81 @@ import "../styles/auth.css";
 
 function Login() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form,    setForm]    = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [error,   setError]   = useState("");
 
-  const handleChange = (e) =>
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setError("");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const data = await loginUser(form);
-
-      // ✅ STORE TOKEN (THIS WAS MISSING)
-      localStorage.setItem("token", data.access);
-
-      alert("Login successful");
+      // FIX: was "token" — must match what axios.js reads ("access")
+      localStorage.setItem("access",  data.access);
+      localStorage.setItem("refresh", data.refresh);
       navigate("/dashboard");
-
-    } catch (error) {
-      alert("Login failed");
+    } catch {
+      setError("Invalid email or password. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="auth-container">
-      <form className="auth-card" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+    <div className="auth-wrapper">
+      <div className="auth-card">
 
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          required
-        />
+        <div className="auth-logo">
+          <div className="auth-logo-icon">🌍</div>
+          <span className="auth-logo-text">GeoTracker</span>
+        </div>
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-        />
+        <h1 className="auth-title">Welcome back</h1>
+        <p className="auth-subtitle">Sign in to continue tracking</p>
 
-        <button type="submit">Login</button>
+        {error && <div className="auth-error">{error}</div>}
 
-        <p>
-          Don't have an account? <Link to="/register">Register</Link>
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Email address</label>
+            <input
+              className="form-input"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              onChange={handleChange}
+              required
+              autoComplete="email"
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input
+              className="form-input"
+              name="password"
+              type="password"
+              placeholder="••••••••"
+              onChange={handleChange}
+              required
+              autoComplete="current-password"
+            />
+          </div>
+
+          <button className="btn-auth" type="submit" disabled={loading}>
+            {loading ? "Signing in…" : "Sign in →"}
+          </button>
+        </form>
+
+        <p className="auth-footer">
+          Don't have an account? <Link to="/register">Create one</Link>
         </p>
-      </form>
+      </div>
     </div>
   );
 }

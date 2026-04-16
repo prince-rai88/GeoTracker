@@ -1,30 +1,73 @@
 import React, { useEffect, useState } from "react";
+import Sidebar from "../components/Sidebar";
 import { getNotifications } from "../api/notificationApi";
+import "../styles/dashboard.css";
 
 function Notifications() {
-  const [notes, setNotes] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [loading,       setLoading]       = useState(true);
 
   useEffect(() => {
-    load();
+    getNotifications()
+      .then(data  => setNotifications(data))
+      .catch(err  => console.error("Notifications error:", err))
+      .finally(() => setLoading(false));
   }, []);
 
-  const load = async () => {
-    const data = await getNotifications();
-    setNotes(data);
-  };
+  const unreadCount = notifications.filter(n => !n.is_read).length;
 
   return (
-    <div className="main-content">
-      <h1>Notifications</h1>
+    <div className="app-layout">
+      <Sidebar />
 
-      {notes.length === 0 && <p>No alerts yet</p>}
+      <div className="main-wrapper">
+        <header className="topbar">
+          <div>
+            <div className="topbar-title">Notifications</div>
+            <div className="topbar-subtitle">Geofence alerts and system messages</div>
+          </div>
+          {unreadCount > 0 && (
+            <span className="badge badge-danger">{unreadCount} unread</span>
+          )}
+        </header>
 
-      {notes.map((n) => (
-        <div key={n.id} className="card">
-          <p>{n.message}</p>
-          <small>{new Date(n.created_at).toLocaleString()}</small>
+        <div className="page-content">
+          <div className="card">
+            {loading ? (
+              <div className="loading-dots">
+                <div className="loading-dot" />
+                <div className="loading-dot" />
+                <div className="loading-dot" />
+              </div>
+            ) : notifications.length === 0 ? (
+              <div className="empty-state">
+                <div className="empty-icon">🔔</div>
+                <div className="empty-title">All clear!</div>
+                <div className="empty-sub">Geofence alerts will appear here when triggered</div>
+              </div>
+            ) : (
+              <div className="notif-list">
+                {notifications.map((n) => (
+                  <div key={n.id} className="notif-item">
+                    <div className={`notif-dot${n.is_read ? " read" : ""}`} />
+                    <div>
+                      <div className="notif-msg">{n.message}</div>
+                      <div className="notif-time">
+                        {new Date(n.created_at).toLocaleString()}
+                        {!n.is_read && (
+                          <span className="badge badge-danger" style={{ marginLeft: "8px", fontSize: "10px" }}>
+                            New
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      ))}
+      </div>
     </div>
   );
 }
